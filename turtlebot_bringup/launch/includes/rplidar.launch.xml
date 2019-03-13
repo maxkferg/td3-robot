@@ -1,0 +1,9 @@
+<launch>   
+    <!-- Create environment variable for rplidar with "rplidar" default value -->
+    <arg name="base" default="$(optenv TURTLEBOT_BASE kobuki)"/>
+    <arg name="stacks" default="$(optenv TURTLEBOT_STACKS hexagons)"/>
+    <arg name="rplidar_sensor" default="$(optenv TURTLEBOT_LASER_SENSOR rplidar)"/>
+     
+    <!-- Launch rplidar -->
+    <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
+</launch>
