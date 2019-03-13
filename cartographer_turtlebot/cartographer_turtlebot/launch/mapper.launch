@@ -1,5 +1,6 @@
 <launch>
-
+  <param name="configuration_basename" value="turtlebot_urg_lidar_2d.lua" />
+  
   <node name="cartographer_node" pkg="cartographer_ros"
       type="cartographer_node" args="
           -configuration_directory
