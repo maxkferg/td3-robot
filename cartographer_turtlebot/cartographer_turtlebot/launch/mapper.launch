@@ -1,0 +1,12 @@
+<launch>
+
+  <node name="cartographer_node" pkg="cartographer_ros"
+      type="cartographer_node" args="
+          -configuration_directory
+              $(find cartographer_turtlebot)/configuration_files
+          -configuration_basename $(arg configuration_basename)"
+      output="screen">
+    <!--remap from="points2" to="/camera/depth/points" /-->
+  </node>
+
+</launch>
