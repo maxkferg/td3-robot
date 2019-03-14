@@ -10,5 +10,5 @@
   </include>
 
   <node pkg="rosbag" type="record" name="rosbag_record_lidar_odom"
-       args="record -o /ssd/maps/scan scan tf tf_static odom mobile_base/sensors/imu_data_raw" />
+       args="record -o /ssd/maps/scan scan tf tf_static odom imu" />
 </launch>
