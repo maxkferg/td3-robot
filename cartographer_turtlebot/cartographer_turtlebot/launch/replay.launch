@@ -20,7 +20,7 @@
       required="$(arg no_rviz)"
       type="cartographer_node" args="
           -configuration_directory $(find cartographer_turtlebot)/configuration_files
-          -configuration_basenames turtlebot_urg_lidar_2d.lua"
+          -configuration_basename turtlebot_urg_lidar_2d.lua"
       output="screen">
   </node>
 
