@@ -1,0 +1,34 @@
+<!--
+  Replay lidar data to generate a map
+  Saves data to /ssd/maps/
+-->
+<launch>
+  <arg name="no_rviz" default="false"/>
+  <param name="/use_sim_time" value="true"/>
+
+  <param name="robot_description"
+    textfile="$(find cartographer_ros)/urdf/robot.urdf" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher"
+    type="robot_state_publisher" />
+
+  <node name="cartographer_offline_node" pkg="cartographer_ros"
+      required="$(arg no_rviz)"
+      type="cartographer_offline_node" args="
+          -configuration_basename turtlebot_urg_lidar_2d.lua
+          -bag_filenames $(arg bag_filenames)"
+      output="screen">
+  </node>
+
+  <node name="flat_world_imu_node" pkg="cartographer_turtlebot"
+      type="cartographer_flat_world_imu_node" output="screen">
+    <remap from="imu_in" to="/mobile_base/sensors/imu_data_raw" />
+    <remap from="imu_out" to="/imu" />
+  </node>
+
+  <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
+      type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
+
+  <node name="rviz" pkg="rviz" type="rviz" required="true"
+      args="-d $(find cartographer_ros)/configuration_files/demo_2d.rviz" />
+</launch>
