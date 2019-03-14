@@ -16,11 +16,10 @@
     <arg name="3d_sensor" value="$(arg 3d_sensor)" />
   </include>
 
-  <node name="cartographer_node" pkg="cartographer_ros"
+  <node name="cartographer_offline_node" pkg="cartographer_ros"
       required="$(arg no_rviz)"
-      type="cartographer_node" args="
-          -configuration_directory $(find cartographer_turtlebot)/configuration_files
-          -configuration_basenames turtlebot_urg_lidar_2d.lua
+      type="cartographer_offline_node" args="
+          -configuration_basename turtlebot_urg_lidar_2d.lua
           -bag_filenames $(arg bag_filenames)"
       output="screen">
   </node>
@@ -30,7 +29,4 @@
 
   <node name="rviz" pkg="rviz" type="rviz" required="true"
       args="-d $(find cartographer_turtlebot)/configuration_files/demo_turtlebot.rviz" />
-
-  <node name="playbag" pkg="rosbag" type="play"
-      args="--clock $(arg bag_filename)" />
 </launch>
