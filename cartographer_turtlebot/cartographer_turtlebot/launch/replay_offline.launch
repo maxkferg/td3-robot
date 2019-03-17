@@ -9,7 +9,7 @@
   <arg name="base"       default="kobuki"    doc="mobile base type [create, roomba]"/>
   <arg name="stacks"     default="hexagons"  doc="stack type displayed in simulation [circles, hexagons]"/>
   <arg name="3d_sensor"  default="astra"     doc="3d sensor types [kinect, asux_xtion_pro]"/>
-  <arg name="urdf_file"  default="$(find cartographer_turtlebot)/robots/kobuki_hexagons_astra.urdf'" />
+  <arg name="urdf_file"  default="$(find cartographer_turtlebot)/robots/kobuki_hexagons_astra.urdf" />
 
   <!--include file="$(find turtlebot_bringup)/launch/includes/robot.launch.xml">
     <arg name="base" value="$(arg base)" />
