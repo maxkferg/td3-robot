@@ -20,6 +20,7 @@
   <node name="cartographer_offline_node" pkg="cartographer_ros"
       required="$(arg no_rviz)"
       type="cartographer_offline_node" args="
+          -configuration_directory $(find cartographer_turtlebot)/configuration_files
           -configuration_basenames turtlebot_urg_lidar_2d.lua
           -bag_filenames $(arg bag_filenames)
           -urdf_filenames $(arg urdf_file)"
