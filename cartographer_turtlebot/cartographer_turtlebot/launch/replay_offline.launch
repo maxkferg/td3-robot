@@ -20,7 +20,8 @@
       required="$(arg no_rviz)"
       type="cartographer_offline_node" args="
           -configuration_basename turtlebot_urg_lidar_2d.lua
-          -bag_filenames $(arg bag_filenames)"
+          -bag_filenames $(arg bag_filenames)
+          -urdf_filenames $(find xacro)/xacro --inorder '$(find turtlebot_description)/robots/kobuki_hexagons_astra.urdf.xacro"
       output="screen">
   </node>
 
