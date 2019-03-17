@@ -23,6 +23,12 @@
     <arg name="configuration_basename" value="turtlebot_urg_lidar_2d.lua" />
   </include>
 
+  <launch>
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
+       <arg name="port" value="8080"/>
+    </include>
+  </launch>
+
   <node name="rviz" pkg="rviz" type="rviz" required="true"
       args="-d $(find cartographer_turtlebot)/configuration_files/demo_turtlebot.rviz" />
 </launch>
