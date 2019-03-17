@@ -9,6 +9,7 @@
   <arg name="base"       default="kobuki"    doc="mobile base type [create, roomba]"/>
   <arg name="stacks"     default="hexagons"  doc="stack type displayed in simulation [circles, hexagons]"/>
   <arg name="3d_sensor"  default="astra"     doc="3d sensor types [kinect, asux_xtion_pro]"/>
+  <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find turtlebot_description)/robots/kobuki_hexagons_astra.urdf.xacro'" />
 
   <include file="$(find turtlebot_bringup)/launch/includes/robot.launch.xml">
     <arg name="base" value="$(arg base)" />
@@ -19,9 +20,9 @@
   <node name="cartographer_offline_node" pkg="cartographer_ros"
       required="$(arg no_rviz)"
       type="cartographer_offline_node" args="
-          -configuration_basename turtlebot_urg_lidar_2d.lua
+          -configuration_basenames turtlebot_urg_lidar_2d.lua
           -bag_filenames $(arg bag_filenames)
-          -urdf_filenames $(find xacro)/xacro --inorder '$(find turtlebot_description)/robots/kobuki_hexagons_astra.urdf.xacro'"
+          -urdf_filenames $(arg urdf_file)"
       output="screen">
   </node>
 
