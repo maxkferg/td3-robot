@@ -1,6 +1,6 @@
 <launch>
   <arg name="bag_filenames" default="/ssd/maps/latest.bag"/>
-  <arg name="pose_graph_filename" default="/ssd/maps/latest.pbstream"/>
+  <arg name="pose_graph_filename" default="/ssd/maps/latest.bag.pbstream"/>
   <arg name="urdf_filename" default="$(find turtlebot_description)/robots/kobuki_hexagons_astra.urdf"/>
 
   <node name="cartographer_assets_writer" pkg="cartographer_ros" required="true"
