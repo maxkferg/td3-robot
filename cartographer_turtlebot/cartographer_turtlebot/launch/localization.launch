@@ -10,12 +10,6 @@
   <arg name="stacks"     default="hexagons"  doc="stack type displayed in simulation [circles, hexagons]"/>
   <arg name="3d_sensor"  default="astra"     doc="3d sensor types [kinect, asux_xtion_pro]"/>
 
-  <include file="$(find turtlebot_bringup)/launch/includes/robot.launch.xml">
-    <arg name="base" value="$(arg base)" />
-    <arg name="stacks" value="$(arg stacks)" />
-    <arg name="3d_sensor" value="$(arg 3d_sensor)" />
-  </include>
-
   <node name="cartographer_node" pkg="cartographer_ros"
       required="$(arg no_rviz)"
       type="cartographer_node" args="
