@@ -9,15 +9,19 @@
   <arg name="base"       default="kobuki"    doc="mobile base type [create, roomba]"/>
   <arg name="stacks"     default="hexagons"  doc="stack type displayed in simulation [circles, hexagons]"/>
   <arg name="3d_sensor"  default="astra"     doc="3d sensor types [kinect, asux_xtion_pro]"/>
-  <arg name="urdf_file"  default="$(find turtlebot_description)/robots/kobuki_hexagons_astra.urdf" />
 
-  <node name="cartographer_offline_node" pkg="cartographer_ros"
+  <include file="$(find turtlebot_bringup)/launch/includes/robot.launch.xml">
+    <arg name="base" value="$(arg base)" />
+    <arg name="stacks" value="$(arg stacks)" />
+    <arg name="3d_sensor" value="$(arg 3d_sensor)" />
+  </include>
+
+  <node name="cartographer_node" pkg="cartographer_ros"
       required="$(arg no_rviz)"
-      type="cartographer_offline_node" args="
+      type="cartographer_node" args="
           -configuration_directory $(find cartographer_turtlebot)/configuration_files
-          -configuration_basenames turtlebot_urg_lidar_2d.lua
-          -bag_filenames $(arg bag_filenames)
-          -urdf_filenames $(arg urdf_file)"
+          -configuration_basename turtlebot_localization.lua
+          -load_state_filename $(arg load_state_filename)"
       output="screen">
   </node>
 
@@ -26,4 +30,7 @@
 
   <node name="rviz" pkg="rviz" type="rviz" required="true"
       args="-d $(find cartographer_turtlebot)/configuration_files/demo_turtlebot.rviz" />
+
+  <node name="playbag" pkg="rosbag" type="play"
+      args="--clock $(arg bag_filename)" />
 </launch>
