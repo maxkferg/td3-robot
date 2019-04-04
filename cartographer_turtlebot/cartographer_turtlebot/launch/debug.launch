@@ -14,7 +14,7 @@
     <!--remap from="points2" to="/camera/depth/points" /-->
   </node>
 
-  <node name="rviz" pkg="rviz" type="rviz" required="true"
+  <!--node name="rviz" pkg="rviz" type="rviz" required="true"
       args="-d $(find cartographer_turtlebot
-          )/configuration_files/demo_turtlebot.rviz" />
+          )/configuration_files/demo_turtlebot.rviz" /-->
 </launch>
