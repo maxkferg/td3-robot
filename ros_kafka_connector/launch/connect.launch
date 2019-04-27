@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- Publish position to Kafka -->
+    <include file="$(find ros_kafka_connector)/kafka_publish.launch" />
+        <arg name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <arg name="kafka_topic" value="robot.events.odom" />
+        <arg name="ros_topic" value="odom" />
+        <arg name="msg_type" value="$geometry_msgs/Twist" />
+    </include>
+
+    <!-- Publish imu to Kafka -->
+    <include file="$(find ros_kafka_connector)/kafka_publish.launch" />
+        <arg name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <arg name="kafka_topic" value="robot.sensors.imu" />
+        <arg name="ros_topic" value="/mobile_base/sensors/imu_data" />
+        <arg name="msg_type" value="$sensor_msgs/Imu" />
+    </include>
+
+    <!-- Publish bumper to Kafka -->
+    <include file="$(find ros_kafka_connector)/kafka_publish.launch" />
+        <arg name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <arg name="kafka_topic" value="robot.sensors.bumper" />
+        <arg name="ros_topic" value="/mobile_base/events/bumper" />
+        <arg name="msg_type" value="$kobuki_msgs/BumperEvent" />
+    </include>
+
+    <!-- Publish controls to ROS -->
+    <include file="$(find ros_kafka_connector)/ros_publish.launch" />
+        <arg name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <arg name="kafka_topic" value="robot.commands.velocity" />
+        <arg name="ros_topic" value="/cmd_vel_mux/input/safety_controller" />
+        <arg name="msg_type" value="$geometry_msgs/Twist" />
+    </include>
+</launch>
