@@ -2,34 +2,38 @@
 
 <launch>
     <!-- Publish position to Kafka -->
-    <include file="$(find ros_kafka_connector)/kafka_publish.launch" />
-        <arg name="bootstrap_server" value="$(env KAFKA_HOST)" />
-        <arg name="kafka_topic" value="robot.events.odom" />
-        <arg name="ros_topic" value="odom" />
-        <arg name="msg_type" value="$geometry_msgs/Twist" />
-    </include>
+    <node pkg="ros_kafka_connector" type="kafka_publish.py" name="kafka_publish_odom"> 
+        <param name="robot_id" value="$(env ROBOT_ID)" />
+        <param name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <param name="kafka_topic" value="robot.events.odom" />
+        <param name="ros_topic" value="odom" />
+        <param name="msg_type" value="nav_msgs/Odometry" />
+    </node>
 
     <!-- Publish imu to Kafka -->
-    <include file="$(find ros_kafka_connector)/kafka_publish.launch" />
-        <arg name="bootstrap_server" value="$(env KAFKA_HOST)" />
-        <arg name="kafka_topic" value="robot.sensors.imu" />
-        <arg name="ros_topic" value="/mobile_base/sensors/imu_data" />
-        <arg name="msg_type" value="$sensor_msgs/Imu" />
-    </include>
+    <node pkg="ros_kafka_connector" type="kafka_publish.py" name="kafka_publish_imu" >
+        <param name="robot_id" value="$(env ROBOT_ID)" />
+        <param name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <param name="kafka_topic" value="robot.sensors.imu" />
+        <param name="ros_topic" value="/mobile_base/sensors/imu_data" />
+        <param name="msg_type" value="sensor_msgs/Imu" />
+    </node>
 
     <!-- Publish bumper to Kafka -->
-    <include file="$(find ros_kafka_connector)/kafka_publish.launch" />
-        <arg name="bootstrap_server" value="$(env KAFKA_HOST)" />
-        <arg name="kafka_topic" value="robot.sensors.bumper" />
-        <arg name="ros_topic" value="/mobile_base/events/bumper" />
-        <arg name="msg_type" value="$kobuki_msgs/BumperEvent" />
-    </include>
+    <node pkg="ros_kafka_connector" type="kafka_publish.py" name="kafka_publish_bumper">
+        <param name="robot_id" value="$(env ROBOT_ID)" />
+        <param name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <param name="kafka_topic" value="robot.sensors.bumper" />
+        <param name="ros_topic" value="/mobile_base/events/bumper" />
+        <param name="msg_type" value="kobuki_msgs/BumperEvent" />
+    </node>
 
     <!-- Publish controls to ROS -->
-    <include file="$(find ros_kafka_connector)/ros_publish.launch" />
-        <arg name="bootstrap_server" value="$(env KAFKA_HOST)" />
-        <arg name="kafka_topic" value="robot.commands.velocity" />
-        <arg name="ros_topic" value="/cmd_vel_mux/input/safety_controller" />
-        <arg name="msg_type" value="$geometry_msgs/Twist" />
-    </include>
+    <node pkg="ros_kafka_connector" type="ros_publish.py" name="ros_publish_velocity" >
+        <param name="robot_id" value="$(env ROBOT_ID)" />
+        <param name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <param name="kafka_topic" value="robot.commands.velocity" />
+        <param name="ros_topic" value="/cmd_vel_mux/input/safety_controller" />
+        <param name="msg_type" value="geometry_msgs/Twist" />
+    </node>
 </launch>

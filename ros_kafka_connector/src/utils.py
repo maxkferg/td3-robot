@@ -12,8 +12,17 @@ def import_msg_type(msg_type):
     elif msg_type == "sensors_msgs/Image":
         from sensor_msgs.msg import Image
         subscriber_msg = Image
+    elif msg_type == "kobuki_msgs/BumperEvent":
+        from kobuki_msgs.msg import BumperEvent
+        subscriber_msg = BumperEvent
+    elif msg_type == "sensor_msgs/Imu":
+        from sensor_msgs.msg import Imu
+        subscriber_msg = Imu
+    elif msg_type == "nav_msgs/Odometry":
+        from nav_msgs.msg import Odometry
+        subscriber_msg = Odometry
     else:
-        raise ValueError("MSG NOT SUPPORTED: Only String/Twist/Image are currently supported. \
-                          Please add imports to utils.py for specific msg type.")
+        raise ValueError("MSG NOT SUPPORTED: %s. \
+                          Please add imports to utils.py for specific msg type.",msg_type)
     
     return subscriber_msg

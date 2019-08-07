@@ -8,7 +8,7 @@
   <!--arg name="rplidar_sensor"    default="$(optenv TURTLEBOT_LASER_SENSOR rplidar)"/-->
   <arg name="serialport"        default="$(env TURTLEBOT_SERIAL_PORT)"  doc="used by create to configure the port it is connected on [/dev/ttyUSB0, /dev/ttyS0]"/>
 
-  <param name="/use_sim_time" value="$(arg simulation)"/>
+  <!--param name="/use_sim_time" value="$(arg simulation)"/-->
 
   <include file="$(find turtlebot_bringup)/launch/includes/robot.launch.xml">
     <arg name="base" value="$(arg base)" />

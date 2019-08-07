@@ -6,13 +6,14 @@
     <arg name="kafka_topic" default="new_topic"/>
     <arg name="ros_topic" default="new_topic"/>
     <arg name="msg_type" default="std_msgs/String"/>
-
+    <arg name="robot_id" />
 
     <node pkg="ros_kafka_connector" type="kafka_publish.py" name="kafka_publish">
         <param name="~bootstrap_server" value="$(arg bootstrap_server)"/>
         <param name="~kafka_topic" value="$(arg kafka_topic)"/>
         <param name="~ros_topic" value="$(arg ros_topic)"/>
         <param name="~msg_type" value="$(arg msg_type)"/>
+        <param name="~robot_id" value="$(arg robot_id)"/>
     </node>
 
 

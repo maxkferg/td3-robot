@@ -4,7 +4,6 @@
 -->
 <launch>
   <arg name="no_rviz" default="false"/>
-  <param name="/use_sim_time" value="true"/>
 
   <arg name="base"       default="kobuki"    doc="mobile base type [create, roomba]"/>
   <arg name="stacks"     default="hexagons"  doc="stack type displayed in simulation [circles, hexagons]"/>
@@ -23,9 +22,9 @@
     <arg name="configuration_basename" value="turtlebot_urg_lidar_2d.lua" />
   </include>
 
-  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
+  <!--include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
      <arg name="port" value="8080"/>
-  </include>
+  </include-->
 
   <group unless="$(arg no_rviz)">
     <node name="rviz" pkg="rviz" type="rviz" required="true"
