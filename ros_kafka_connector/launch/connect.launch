@@ -28,6 +28,24 @@
         <param name="msg_type" value="kobuki_msgs/BumperEvent" />
     </node>
 
+    <!-- Publish map to Kafka -->
+    <node pkg="ros_kafka_connector" type="kafka_publish.py" name="kafka_publish_map">
+        <param name="robot_id" value="$(env ROBOT_ID)" />
+        <param name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <param name="kafka_topic" value="robot.sensors.map" />
+        <param name="ros_topic" value="map" />
+        <param name="msg_type" value="nav_msgs/OccupancyGrid" />
+    </node>
+
+    <!-- Publish pointcloud to Kafka -->
+    <node pkg="ros_kafka_connector" type="kafka_publish.py" name="kafka_publish_pointcloud">
+        <param name="robot_id" value="$(env ROBOT_ID)" />
+        <param name="bootstrap_server" value="$(env KAFKA_HOST)" />
+        <param name="kafka_topic" value="robot.sensors.pointcloud" />
+        <param name="ros_topic" value="scan_matched_points2" />
+        <param name="msg_type" value="sensor_msgs/PointCloud2" />
+    </node>
+
     <!-- Publish controls to ROS -->
     <node pkg="ros_kafka_connector" type="ros_publish.py" name="ros_publish_velocity" >
         <param name="robot_id" value="$(env ROBOT_ID)" />

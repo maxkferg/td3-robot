@@ -5,7 +5,11 @@ import rospy
 from kafka import KafkaProducer
 from kafka import KafkaConsumer
 from rospy_message_converter import message_converter
+from sensor_msgs import point_cloud2 as pc2
 from utils import import_msg_type
+
+POINTCLOUD_MSG_TYPE = "sensor_msgs/PointCloud2"
+
 
 class kafka_publish():
 
@@ -36,9 +40,17 @@ class kafka_publish():
         rospy.logwarn("Using {} MSGs from ROS: {} -> KAFKA: {}".format(self.msg_type, self.ros_topic,self.kafka_topic))
 
 
+    def _pointcloud_to_list(self, msg):
+        """Convert a pointcloud2 message to a simple dict"""
+        gen = pc2.read_points(msg, skip_nans=True, field_names=("x", "y", "z"))
+        return list(gen)
+
+
     def callback(self, msg):
         # Output msg to ROS and send to Kafka server
         msg_dict = message_converter.convert_ros_message_to_dictionary(msg)
+        if self.msg_type==POINTCLOUD_MSG_TYPE:
+            msg_dict['points'] = self._pointcloud_to_list(msg)
         msg_dict['robot'] = {'id': self.robot_id}
         self.producer.send(self.kafka_topic, msg_dict)
         self.num_messages += 1

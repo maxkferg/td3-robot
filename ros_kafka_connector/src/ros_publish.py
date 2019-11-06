@@ -7,7 +7,8 @@ import rospy
 from rospy_message_converter import json_message_converter
 from utils import import_msg_type
 
-class ros_publish():
+
+class ros_publish():    
 
     def __init__(self):
 
@@ -20,6 +21,7 @@ class ros_publish():
         self.ros_topic = rospy.get_param("~ros_topic", "test")
         self.kafka_topic = rospy.get_param("~kafka_topic", "test")
         self.msg_type = rospy.get_param("~msg_type", "std_msgs/String")
+        self.robot_id = rospy.get_param("~robot_id")
 
         # Create kafka consumer
         self.consumer = KafkaConsumer(self.kafka_topic,
@@ -41,13 +43,17 @@ class ros_publish():
  
         while not rospy.is_shutdown():
             for msg in self.consumer:
+                rospy.logwarn(msg)
+                if msg.value["robot"]["id"]!=self.robot_id:
+                    continue
+                rospy.logwarn("Received Control Message")
                 # Convert Kafka message to JSON string
-                json_str = json.dumps(msg.value)
+                twist_msg = msg.value["velocity"]
+                json_str = json.dumps(twist_msg)
                 # Convert JSON to ROS message
                 ros_msg = json_message_converter.convert_json_to_ros_message(self.msg_type, json_str)
                 # Publish to ROS topic
                 self.publisher.publish(ros_msg)
-                rospy.logwarn("Received MSG: {}".format(json_str))
         
         rospy.spin()
 

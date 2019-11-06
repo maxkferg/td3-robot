@@ -12,6 +12,9 @@ def import_msg_type(msg_type):
     elif msg_type == "sensors_msgs/Image":
         from sensor_msgs.msg import Image
         subscriber_msg = Image
+    elif msg_type == "sensor_msgs/PointCloud2":
+        from sensor_msgs.msg import PointCloud2
+        subscriber_msg = PointCloud2
     elif msg_type == "kobuki_msgs/BumperEvent":
         from kobuki_msgs.msg import BumperEvent
         subscriber_msg = BumperEvent
@@ -21,6 +24,9 @@ def import_msg_type(msg_type):
     elif msg_type == "nav_msgs/Odometry":
         from nav_msgs.msg import Odometry
         subscriber_msg = Odometry
+    elif msg_type == "nav_msgs/OccupancyGrid":
+        from nav_msgs.msg import OccupancyGrid
+        subscriber_msg = OccupancyGrid
     else:
         raise ValueError("MSG NOT SUPPORTED: %s. \
                           Please add imports to utils.py for specific msg type.",msg_type)
