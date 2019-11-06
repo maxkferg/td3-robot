@@ -1,6 +1,19 @@
 # Mobile Robot Control Software
 
 ## Quick Start
+
+```sh
+export MAP=/ssd/maps/lab.bag
+export ROBOT_ID=5d3f7a166e30e20100000001
+export KAFKA_HOST=kafka-0.digitalpoints.io:19092
+
+cd ~/td3_ws
+bash start.sh
+bash kafka.sh
+```
+
+## Mapping
+
 ### Build the current source
 ```sh
 cd ~/td3_ws
